@@ -3,7 +3,7 @@ import json
 from datetime import datetime
 from flask import Flask, render_template, request
 from . import app
-import sr as sr
+import speech_recognition as sr
 import audiomath; audiomath.RequireAudiomathVersion( '1.12.0' )
 
 @app.route("/", methods=['GET', 'POST'])
