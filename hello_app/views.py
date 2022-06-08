@@ -3,7 +3,8 @@ import json
 from datetime import datetime
 from flask import Flask, render_template, request
 from . import app
-import speech_recognition as sr
+import sr as sr
+import audiomath; audiomath.RequireAudiomathVersion( '1.12.0' )
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
@@ -55,7 +56,7 @@ def query(question, context):
     resp = requests.post(scoring_uri, data=data, headers=headers)
     return resp.text
 
-class DuckTypedMicrophone( speech_recognition.AudioSource ): # descent from AudioSource is required purely to pass an assertion in Recognizer.listen()
+class DuckTypedMicrophone( sr.AudioSource ): # descent from AudioSource is required purely to pass an assertion in Recognizer.listen()
     def __init__( self, device=None, chunkSeconds=1024/44100.0 ):  # 1024 samples at 44100 Hz is about 23 ms
         self.recorder = None
         self.device = device
