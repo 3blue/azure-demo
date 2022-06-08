@@ -11,7 +11,7 @@ def home():
         #response = query(request.form['question'], request.form['context'])
         #response = ''.join( c for c in response if  c not in '[]",' )
         #out = "THE MODEL SAYS: " + response
-        return render_template("home.html") + listen_to_mic
+        return render_template("home.html") + listen_to_mic()
     return render_template("home.html")
 
 @app.route("/about/")
