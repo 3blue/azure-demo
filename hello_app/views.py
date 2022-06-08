@@ -8,10 +8,10 @@ import speech_recognition as sr
 @app.route("/", methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
-        response = query(request.form['question'], request.form['context'])
-        response = ''.join( c for c in response if  c not in '[]",' )
-        out = "THE MODEL SAYS: " + response
-        return render_template("home.html") + out
+        #response = query(request.form['question'], request.form['context'])
+        #response = ''.join( c for c in response if  c not in '[]",' )
+        #out = "THE MODEL SAYS: " + response
+        return render_template("home.html") + listen_to_mic
     return render_template("home.html")
 
 @app.route("/about/")
@@ -58,10 +58,10 @@ def query(question, context):
 def listen_to_mic():
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print("Speak Anything :")
+        #print("Speak Anything :")
         audio = r.listen(source)
         try:
             text = r.recognize_google(audio)
-            print("You said : {}".format(text))
+            return "You said : {}".format(text)
         except:
-            print("Sorry could not recognize what you said")
+            return "Sorry could not recognize what you said"
