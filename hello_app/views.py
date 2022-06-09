@@ -3,15 +3,14 @@ import json
 from datetime import datetime
 from flask import Flask, render_template, request
 from . import app
-import speech_recognition as sr
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
-        #response = query(request.form['question'], request.form['context'])
-        #response = ''.join( c for c in response if  c not in '[]",' )
-        #out = "THE MODEL SAYS: " + response
-        return render_template("home.html") + listen_to_mic()
+        response = query(request.form['question'], request.form['context'])
+        response = ''.join( c for c in response if  c not in '[]",' )
+        out = "THE MODEL SAYS: " + response
+        return render_template("home.html") + out
     return render_template("home.html")
 
 @app.route("/about/")
@@ -54,13 +53,3 @@ def query(question, context):
     data = json.dumps(data)
     resp = requests.post(scoring_uri, data=data, headers=headers)
     return resp.text
-        
-def listen_to_mic():
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        audio = r.listen(source)
-        try:
-            text = r.recognize_google(audio)
-            return "You said : {}".format(text)
-        except:
-            return "Sorry, could not recognize what you said."
