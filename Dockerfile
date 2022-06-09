@@ -34,3 +34,4 @@ COPY . /hello_app
 #RUN pip install --no-cache-dir -r /requirements.txt
 
 RUN sudo apt-get install portaudio19-dev
+RUN pip install pyaudio
