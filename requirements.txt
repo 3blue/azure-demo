@@ -1,4 +1,4 @@
 Flask
 requests
-audiomath==1.12.0
 SpeechRecognition
+pyaudio
